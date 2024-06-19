@@ -191,11 +191,9 @@ export class H5PStandalone {
     }
 
     async prepareH5PEnvironment(contentId, options: Options): Promise<H5PIntegration> {
-
         /**
          * Load H5P content and libraries
          */
-
         const {h5pJsonPath, contentJsonPath, librariesPath} = this.getH5PPaths(options);
 
         const H5PJsonContent = <H5PPackageDefinition>(await getJSON(`${h5pJsonPath}/h5p.json`, options?.assetsRequestFetchOptions));
@@ -359,7 +357,6 @@ export class H5PStandalone {
         }
 
         let contentJsonPath: string = `${h5pJsonPath}/content`;
-
         if (options.contentJsonPath) {
             contentJsonPath = urlPath(options.contentJsonPath);
         }
@@ -428,9 +425,7 @@ export class H5PStandalone {
      * FInd the main library for this H5P
      * @return {Promise}
      */
-    async findMainLibrary(h5pJsonContent: H5PPackageDefinition,
-                          librariesPath: string): Promise<H5PLibraryDefinition> {
-
+    async findMainLibrary(h5pJsonContent: H5PPackageDefinition, librariesPath: string): Promise<H5PLibraryDefinition> {
         const mainLibraryInfo = h5pJsonContent.preloadedDependencies
             .find(dependency => dependency.machineName === h5pJsonContent.mainLibrary);
 

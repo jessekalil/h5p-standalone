@@ -2336,6 +2336,12 @@ H5P.createTitle = function (rawTitle, maxLength) {
       return;
     }
 
+    // Patch to let override this method.
+    if (H5P.contentUserDataAjax !== undefined) {
+      return H5P.contentUserDataAjax(contentId, dataType, subContentId, done, data, preload, invalidate, async);
+    }
+    // End of patch.
+
     var options = {
       url: H5PIntegration.ajax.contentUserData.replace(':contentId', contentId).replace(':dataType', dataType).replace(':subContentId', subContentId ? subContentId : 0),
       dataType: 'json',
