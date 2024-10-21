@@ -57,6 +57,7 @@ export interface User {
 export interface H5PContent {
     title: string; //content title
     url: string; //content URI (absolute + canonical) used to generate xAPI statement.object.id
+    ariaLabel?: string; //content aria-label
 
     contentUrl?: string; //storage path to override location of the content files
 

@@ -22,6 +22,7 @@ import {
 interface Options {
     id?: string;
     title?: string;
+    ariaLabel?: string;
 
     frameCss: string;
     frameJs: string;
@@ -85,6 +86,8 @@ interface PlayerFrameOptions {
     contentId: string,
     embedType: Options['embedType'],
     H5PIntegration: H5PIntegration,
+    title?: string,
+    ariaLabel?: string
 }
 
 export class H5PStandalone {
@@ -107,8 +110,10 @@ export class H5PStandalone {
                 (<any>window).H5P.preventInit = true;
 
                 const embedType = options.embedType ? options.embedType : 'iframe';
+                const title = options.title ?? '';
+                const ariaLabel = options.ariaLabel ?? '';
 
-                return this.renderPlayerFrame({anchorElement, contentId, embedType, H5PIntegration})
+                return this.renderPlayerFrame({anchorElement, contentId, embedType, H5PIntegration, title, ariaLabel})
                     .then(() => {
                         //initialize the H5P
                         if (options.preventH5PInit === undefined || !!options.preventH5PInit) {
@@ -141,6 +146,8 @@ export class H5PStandalone {
             iframe.classList.add('h5p-iframe');
             iframe.setAttribute('scrolling', 'no');
             iframe.setAttribute('data-content-id', params.contentId);
+            iframe.setAttribute('title', params.title);
+            iframe.setAttribute('aria-label', params.ariaLabel);
 
             iframe.setAttribute('frameBorder', '0');
             iframe.style.width = '100%'
